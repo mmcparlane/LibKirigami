@@ -216,6 +216,28 @@ QQC2.Page {
     readonly property alias overlay: overlayItem
 
     /**
+     * icon: variant
+     *
+     * The icon that represents this page.
+     */
+    property ActionIconGroup icon: ActionIconGroup {}
+
+    /**
+     * needsAttention: bool
+     *
+     * Whether this page needs user attention.
+     */
+    property bool needsAttention
+
+    /**
+     * progress: real
+     *
+     * Progress of a task this page is doing. Set to undefined to indicate
+     * that there are no ongoing tasks.
+     */
+    property var progress: undefined
+
+    /**
      * titleDelegate: Component
      * The delegate which will be used to draw the page title. It can be customized to put any kind of Item in there.
      * @since 2.7
@@ -384,6 +406,10 @@ QQC2.Page {
                 right: parent.right
                 bottom: parent.bottom
             }
+            //if the page doesn't inherit, assume it has custom colors we want to use them here too
+            Kirigami.Theme.inherit: !root.Kirigami.Theme.inherit
+            Kirigami.Theme.colorSet: Kirigami.Theme.Button
+
             //It should be T2.Page, Qt 5.7 doesn't like it
             property Item page: root
             height: item ? item.implicitHeight : 0

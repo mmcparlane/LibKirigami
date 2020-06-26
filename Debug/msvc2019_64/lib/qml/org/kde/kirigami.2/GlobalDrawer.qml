@@ -9,7 +9,7 @@ import QtQuick.Templates 2.0 as T2
 import QtQuick.Controls 2.2 as QQC2
 import QtQuick.Layouts 1.2
 import QtGraphicalEffects 1.0
-import org.kde.kirigami 2.4
+import org.kde.kirigami 2.13
 
 import "private"
 import "templates/private"
@@ -256,6 +256,8 @@ OverlayDrawer {
 
     //rightPadding: !Settings.isMobile && mainFlickable.contentHeight > mainFlickable.height ? Units.gridUnit : Units.smallSpacing
 
+    Theme.colorSet: modal ? Theme.Window : Theme.View
+
     onHeaderChanged: {
         if (header) {
             header.parent = headerContainer
@@ -473,11 +475,23 @@ OverlayDrawer {
 
                         Repeater {
                             id: actionsRepeater
+
+                            readonly property bool withSections: {
+                                for (var i = 0; i < root.actions.length; i++) {
+                                    let action = root.actions[i];
+                                    if (!(action.hasOwnProperty("expandible") && action.expandible)) {
+                                        return false;
+                                    }
+                                }
+                                return true;
+                            }
+
                             model: root.actions
                             delegate: Column {
                                 width: parent.width
                                 GlobalDrawerActionItem {
                                     id: drawerItem
+                                    visible: root.collapsed || !(modelData.hasOwnProperty("expandible") && modelData.expandible)
                                     width: parent.width
                                     onCheckedChanged: {
                                         // move every checked item into view
@@ -485,13 +499,49 @@ OverlayDrawer {
                                             mainFlickable.contentY += height
                                         }
                                     }
+                                    Theme.colorSet: drawerItem.visible && !root.modal && !root.collapsed && actionsRepeater.withSections ? Theme.Window : parent.Theme.colorSet
+                                    backgroundColor: Theme.backgroundColor
+                                }
+                                Item {
+                                    id: headerItem
+                                    visible: !root.collapsed && (modelData.hasOwnProperty("expandible") && modelData.expandible && !!modelData.children && modelData.children.length > 0)
+                                    height: sectionHeader.implicitHeight
+                                    width: parent.width
+                                    ListSectionHeader {
+                                        id: sectionHeader
+                                        anchors.fill: parent
+                                        Theme.colorSet: root.modal ? Theme.View : Theme.Window
+                                        contentItem: RowLayout {
+                                            Icon {
+                                                height: header.height
+                                                width: height
+                                                source: modelData.icon.name || modelData.icon.source
+                                            }
+                                            Heading {
+                                                id: header
+                                                level: 3
+                                                text: modelData.text
+                                            }
+                                            Item {
+                                                Layout.fillWidth: true
+                                            }
+                                        }
+                                    }
                                 }
                                 Repeater {
-                                    model: drawerItem.visible && modelData.hasOwnProperty("expandible") && modelData.expandible ? modelData.children : null
+                                    id: __repeater
+                                    model: headerItem.visible ? modelData.children : null
                                     delegate: GlobalDrawerActionItem {
                                         width: parent.width
-                                        leftPadding: Units.largeSpacing * 2
                                         opacity: !root.collapsed
+                                        leftPadding: actionsRepeater.withSections && !root.collapsed && !root.modal ? padding * 2 : padding * 4
+                                    }
+                                }
+                                Separator {
+                                    visible: __repeater.count > 0
+                                    anchors {
+                                        left: parent.left
+                                        right: parent.right
                                     }
                                 }
                             }

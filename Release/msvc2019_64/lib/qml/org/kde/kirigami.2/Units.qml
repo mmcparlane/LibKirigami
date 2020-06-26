@@ -19,7 +19,7 @@ QtObject {
 
     /**
      * The fundamental unit of space that should be used for sizes, expressed in pixels.
-     * Given the screen has an accurate DPI settings, it corresponds to a width of
+     * Given the screen has an accurate DPI settings, it corresponds to the height of
      * the capital letter M
      */
     property int gridUnit: fontMetrics.height
@@ -64,7 +64,7 @@ QtObject {
      * the size of the default font as rendered on the screen, so it takes user-configured font
      * size and DPI into account.
      */
-    property int largeSpacing: smallSpacing*2
+    property int largeSpacing: smallSpacing * 2
 
     /**
      * The ratio between physical and device-independent pixels. This value does not depend on the \

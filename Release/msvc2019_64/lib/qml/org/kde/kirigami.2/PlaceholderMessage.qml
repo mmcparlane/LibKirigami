@@ -6,7 +6,7 @@
 
 import QtQuick 2.0
 import QtQuick.Controls 2.4 as QQC2
-import QtQuick.Layouts 1.13
+import QtQuick.Layouts 1.12
 import org.kde.kirigami 2.12 as Kirigami
 
 import "private"
@@ -33,9 +33,7 @@ import "private"
  *
  *     Kirigami.PlaceholderMessage {
  *         anchors.centerIn: parent
- *         anchors.left: parent.left
- *         anchors.right: parent.right
- *         anchors.margins: Kirigami.Units.largeSpacing
+ *         width: parent.width - (Kirigami.Units.largeSpacing * 4)
  *
  *         visible: listView.count == 0
  *
@@ -54,15 +52,13 @@ import "private"
  *
  *     Kirigami.PlaceholderMessage {
  *         anchors.centerIn: parent
- *         anchors.left: parent.left
- *         anchors.right: parent.right
- *         anchors.margins: Kirigami.Units.largeSpacing
+ *         width: parent.width - (Kirigami.Units.largeSpacing * 4)
  *
  *         visible: listView.count == 0
  *
  *         text: "Add an item to proceed"
  *
- *         action: Kirigami.Action {
+ *         helpfulAction: Kirigami.Action {
  *             iconName: "list-add"
  *             text: "Add item..."
  *             onTriggered: {
@@ -83,9 +79,7 @@ import "private"
  *
  *     Kirigami.PlaceholderMessage {
  *         anchors.centerIn: parent
- *         anchors.left: parent.left
- *         anchors.right:  parent.right
- *         anchors.margins: Kirigami.Units.largeSpacing
+ *         width: parent.width - (Kirigami.Units.largeSpacing * 4)
  *
  *         visible: root.networkConnected
  *
@@ -105,9 +99,7 @@ import "private"
  *
  *     Kirigami.PlaceholderMessage {
  *         anchors.centerIn: parent
- *         anchors.left: parent.left
- *         anchors.right:  parent.right
- *         anchors.margins: Kirigami.Units.largeSpacing
+ *         width: parent.width - (Kirigami.Units.largeSpacing * 4)
  *
  *         visible: root.loading
  *
@@ -132,13 +124,11 @@ import "private"
  *
  *     Kirigami.PlaceholderMessage {
  *         anchors.centerIn: parent
- *         anchors.left: parent.left
- *         anchors.right:  parent.right
- *         anchors.margins: Kirigami.Units.largeSpacing
+ *         width: parent.width - (Kirigami.Units.largeSpacing * 4)
  *
  *         visible: root.loading
  *
- *         action: Kirigami.Action {
+ *         helpfulAction: Kirigami.Action {
  *             iconName: "list-add"
  *             text: "Add item..."
  *             onTriggered: {
@@ -179,7 +169,7 @@ ColumnLayout {
     property ActionIconGroup icon: ActionIconGroup {}
 
     /**
-     * helperAction: QtQuickControls2 Action
+     * helpfulAction: QtQuickControls2 Action
      * An action that helps the user proceed. Typically used to guide the user
      * to the next step for adding content or items to an empty view.
      *

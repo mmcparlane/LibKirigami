@@ -88,7 +88,22 @@ QtObject {
     property color complementaryHoverColor: "#2196F3"
     property color complementaryFocusColor: "#2196F3"
 
+    property color headerTextColor: "#232629"
+    property color headerBackgroundColor: "#e3e5e7"
+    property color headerAlternateBackgroundColor: "#eff0f1"
+    property color headerHoverColor: "#2196F3"
+    property color headerFocusColor: "#93cee9"
+    
     property font defaultFont: fontMetrics.font
+    property font smallFont: {
+        let font = fontMetrics.font
+        if (!!font.pixelSize) {
+            font.pixelSize =- 2
+        } else {
+            font.pointSize =- 2
+        }
+        return font
+    }
 
     property list<QtObject> children: [
         TextMetrics {

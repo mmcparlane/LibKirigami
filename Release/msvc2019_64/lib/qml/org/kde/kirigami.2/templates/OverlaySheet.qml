@@ -52,25 +52,25 @@ QtObject {
      * leftPadding: int
      * default contents padding at left
      */
-    property int leftPadding: Units.gridUnit
+    property int leftPadding: Units.largeSpacing
 
     /**
      * topPadding: int
      * default contents padding at top
      */
-    property int topPadding: Units.gridUnit
+    property int topPadding: Units.largeSpacing
 
     /**
      * rightPadding: int
      * default contents padding at right
      */
-    property int rightPadding: Units.gridUnit
+    property int rightPadding: Units.largeSpacing
 
     /**
      * bottomPadding: int
      * default contents padding at bottom
      */
-    property int bottomPadding: Units.gridUnit
+    property int bottomPadding: Units.largeSpacing
 
     /**
      * leftInset: real
@@ -143,12 +143,15 @@ QtObject {
     }
 
     function close() {
-        closeAnimation.running = true;
+        if (root.sheetOpen) {
+            closeAnimation.running = true;
+        }
     }
 
     onBackgroundChanged: {
         background.parent = contentLayout.parent;
         background.anchors.fill = contentLayout;
+        background.anchors.margins = -1
         background.z = -1;
     }
     onContentItemChanged: {
@@ -170,7 +173,7 @@ QtObject {
         if (sheetOpen) {
             open();
         } else {
-            close();
+            closeAnimation.running = true;
             Qt.inputMethod.hide();
         }
     }
@@ -214,8 +217,8 @@ QtObject {
         clip: true
 
         onClicked: {
-            var pos = mapToItem(scrollView.contentItem, mouse.x, mouse.y);
-            if (!scrollView.contentItem.contains(pos)) {
+            var pos = mapToItem(contentLayout, mouse.x, mouse.y);
+            if (!contentLayout.contains(pos)) {
                 root.close();
             }
         }
@@ -253,7 +256,7 @@ QtObject {
                 cursorY = focusItem.positionToRectangle(focusItem.cursorPosition).y;
             }
 
-            
+
             var pos = focusItem.mapToItem(flickableContents, 0, cursorY - Units.gridUnit*3);
             //focused item already visible? add some margin for the space of the action buttons
             if (pos.y >= scrollView.flickableItem.contentY && pos.y <= scrollView.flickableItem.contentY + scrollView.flickableItem.height - Units.gridUnit * 8) {
@@ -263,7 +266,7 @@ QtObject {
         }
 
         ParallelAnimation {
-            id: openAnimation 
+            id: openAnimation
             property int margins: Units.gridUnit * 5
             NumberAnimation {
                 target: outerFlickable
@@ -336,7 +339,7 @@ QtObject {
 
             width: mainItem.contentItemPreferredWidth <= 0 ? mainItem.width : Math.max(mainItem.width/2, Math.min(mainItem.contentItemMaximumWidth, mainItem.contentItemPreferredWidth))
 
-            height: scrollView.contentItem == flickableContents ? (root.contentItem.height + topPadding + bottomPadding) + (headerItem.visible ? headerItem.height : 0) + (footerItem.visible ? footerItem.height : 0) : 0
+            height: scrollView.contentItem == flickableContents ? root.contentItem.height + topPadding + bottomPadding : 0
             Connections {
                 target: enabled ? flickableContents.Window.activeFocusItem : null
                 enabled: flickableContents.focus && flickableContents.Window.activeFocusItem && flickableContents.Window.activeFocusItem.hasOwnProperty("text")
@@ -488,6 +491,8 @@ QtObject {
                             right: parent.right
                             top: parent.top
                             margins: Units.smallSpacing
+                            rightMargin: root.rightPadding
+                            verticalCenter: headerItem.verticalCenter
                         }
                         z: 3
                         visible: root.showCloseButton
@@ -507,8 +512,6 @@ QtObject {
                             right: parent.right
                             left: parent.left
                             top: parent.bottom
-                            leftMargin: 1
-                            rightMargin: 1
                         }
                     }
                 }
@@ -533,7 +536,7 @@ QtObject {
                             return;
                         }
                         scrollView.userInteracting = true;
-                        
+
                         let diff = scrollView.flickableItem.contentY - oldContentY
 
                         outerFlickable.contentY = outerFlickable.contentY + diff;
@@ -595,6 +598,8 @@ QtObject {
                         right: parent.right
                         left: parent.left
                         bottom: parent.top
+                        leftMargin: -1
+                        rightMargin: -1
                     }
                 }
             }

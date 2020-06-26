@@ -7,7 +7,7 @@
 import QtQuick 2.1
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.0 as QQC2
-import org.kde.kirigami 2.4
+import org.kde.kirigami 2.12
 
 /**
  * An item delegate for the primitive ListView component.
@@ -24,6 +24,22 @@ AbstractListItem {
      * A single text label the list item will contain
      */
     property alias label: listItem.text
+
+    /**
+     * A subtitle that goes below the main label
+     * Optional; if not defined, the list item will only have a main label
+     * @since 5.70
+     * @since org.kde.kirigami 2.12
+     */
+    property alias subtitle: subtitleItem.text
+
+    /**
+     * bold: bool
+     * Control whether the text (in both primary text and subtitle) should be rendered as bold
+     * @since 5.71
+     * @since org.kde.kirigami 2.13
+     */
+    property bool bold: false
 
     /**
      * icon: var
@@ -74,7 +90,10 @@ AbstractListItem {
         Icon {
             id: iconItem
             source: {
-                if (listItem.icon && listItem.icon.hasOwnProperty) {
+                if (!listItem.icon) {
+                    return undefined
+                }
+                if (listItem.icon.hasOwnProperty) {
                     if (listItem.icon.hasOwnProperty("name") && listItem.icon.name !== "")
                         return listItem.icon.name;
                     if (listItem.icon.hasOwnProperty("source"))
@@ -88,15 +107,30 @@ AbstractListItem {
             Layout.minimumWidth: size
             selected: (listItem.highlighted || listItem.checked || (listItem.pressed && listItem.supportsMouseEvents))
             opacity: 1
+            visible: source != undefined
         }
-        QQC2.Label {
-            id: labelItem
-            text: listItem.text
+        ColumnLayout {
+            spacing: 0
             Layout.fillWidth: true
-            color: (listItem.highlighted || listItem.checked || (listItem.pressed && listItem.supportsMouseEvents)) ? listItem.activeTextColor : listItem.textColor
-            elide: Text.ElideRight
-            font: listItem.font
-            opacity: 1
+            Layout.alignment: Qt.AlignVCenter
+            QQC2.Label {
+                id: labelItem
+                text: listItem.text
+                Layout.fillWidth: true
+                color: (listItem.highlighted || listItem.checked || (listItem.pressed && listItem.supportsMouseEvents)) ? listItem.activeTextColor : listItem.textColor
+                elide: Text.ElideRight
+                font.weight: listItem.bold ? Font.Bold : Font.Normal
+                opacity: 1
+            }
+            QQC2.Label {
+                id: subtitleItem
+                Layout.fillWidth: true
+                color: (listItem.highlighted || listItem.checked || (listItem.pressed && listItem.supportsMouseEvents)) ? listItem.activeTextColor : listItem.textColor
+                elide: Text.ElideRight
+                font: Theme.smallFont
+                opacity: listItem.bold ? 0.9 : 0.7
+                visible: text.length > 0
+            }
         }
     }
 }
