@@ -39,8 +39,7 @@
 #    * Icons are compiled into the executable using a resource file.
 #    * Icons may not show up in Windows Explorer if the executable
 #      target does not have the ``WIN32_EXECUTABLE`` property set.
-#    * One of the tools png2ico (See :find-module:`FindPng2Ico`) or
-#      icotool (see :find-module:`FindIcoTool`) is required.
+#    * Icotool (see :find-module:`FindIcoTool`) is required.
 #    * Supported sizes: 16, 24, 32, 48, 64, 128, 256, 512 and 1024.
 #
 # Mac OS X notes
@@ -67,36 +66,14 @@
 #
 # Since 1.7.0.
 
-
 #=============================================================================
-# Copyright 2014 Alex Merry <alex.merry@kde.org>
-# Copyright 2014 Ralf Habacker <ralf.habacker@freenet.de>
-# Copyright 2006-2009 Alexander Neundorf, <neundorf@kde.org>
-# Copyright 2006, 2007, Laurent Montel, <montel@kde.org>
-# Copyright 2007 Matthias Kretz <kretz@kde.org>
+# SPDX-FileCopyrightText: 2014 Alex Merry <alex.merry@kde.org>
+# SPDX-FileCopyrightText: 2014 Ralf Habacker <ralf.habacker@freenet.de>
+# SPDX-FileCopyrightText: 2006-2009 Alexander Neundorf <neundorf@kde.org>
+# SPDX-FileCopyrightText: 2006, 2007 Laurent Montel <montel@kde.org>
+# SPDX-FileCopyrightText: 2007 Matthias Kretz <kretz@kde.org>
 #
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions
-# are met:
-#
-# 1. Redistributions of source code must retain the copyright
-#    notice, this list of conditions and the following disclaimer.
-# 2. Redistributions in binary form must reproduce the copyright
-#    notice, this list of conditions and the following disclaimer in the
-#    documentation and/or other materials provided with the distribution.
-# 3. The name of the author may not be used to endorse or promote products
-#    derived from this software without specific prior written permission.
-#
-# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
-# IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
-# OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-# IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
-# INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
-# NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
-# THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+# SPDX-License-Identifier: BSD-3-Clause
 
 include(CMakeParseArguments)
 
@@ -192,7 +169,6 @@ function(ecm_add_app_icon appsources)
     if (WIN32 AND (windows_icons_modern OR windows_icons_classic))
         set(saved_CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}")
         set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_FIND_MODULE_DIR})
-        find_package(Png2Ico)
         find_package(IcoTool)
         set(CMAKE_MODULE_PATH "${saved_CMAKE_MODULE_PATH}")
 
@@ -245,33 +221,8 @@ function(ecm_add_app_icon appsources)
 
             create_windows_icon_and_rc(IcoTool::IcoTool "${icotool_args}" "${windows_icons_modern}")
             set(${appsources} "${${appsources}};${_outfilename}.rc" PARENT_SCOPE)
-
-        # standard png2ico has no rcfile argument
-        elseif(Png2Ico_FOUND AND NOT Png2Ico_HAS_RCFILE_ARGUMENT AND windows_icons_classic)
-            set(png2ico_args)
-            list(APPEND png2ico_args "${_outfilename}.ico")
-            list(APPEND png2ico_args "${windows_icons_classic}")
-
-            create_windows_icon_and_rc(Png2Ico::Png2Ico "${png2ico_args}" "${windows_icons_classic}")
-            set(${appsources} "${${appsources}};${_outfilename}.rc" PARENT_SCOPE)
-
-        # png2ico from kdewin provides rcfile argument
-        elseif(Png2Ico_FOUND AND windows_icons_classic)
-            add_custom_command(
-                  OUTPUT "${_outfilename}.rc" "${_outfilename}.ico"
-                  COMMAND Png2Ico::Png2Ico
-                  ARGS
-                      --rcfile "${_outfilename}.rc"
-                      "${_outfilename}.ico"
-                      ${windows_icons_classic}
-                  DEPENDS ${windows_icons_classic}
-                  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-              )
-
-            set(${appsources} "${${appsources}};${_outfilename}.rc" PARENT_SCOPE)
-        # else none of the supported tools was found
         else()
-            message(WARNING "Unable to find the png2ico or icotool utilities or icons in matching sizes - application will not have an application icon!")
+            message(WARNING "Unable to find the icotool utilities or icons in matching sizes - application will not have an application icon!")
         endif()
     elseif (APPLE AND (mac_icons OR mac_sidebar_icons))
         # first generate .iconset directory structure, then convert to .icns format using the Mac OS X "iconutil" utility,
