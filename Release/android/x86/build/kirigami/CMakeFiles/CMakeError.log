@@ -1,0 +1,51 @@
+Determining if the __GLIBC__ exist failed with the following output:
+Change Dir: C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/ninja-win/ninja.exe cmTC_c7bb8 && [1/2] Building C object CMakeFiles/cmTC_c7bb8.dir/CheckSymbolExists.c.o
+FAILED: CMakeFiles/cmTC_c7bb8.dir/CheckSymbolExists.c.o 
+D:\Android\ndk\21.1.6352462\toolchains\llvm\prebuilt\windows-x86_64\bin\clang.exe --target=i686-none-linux-android21 --gcc-toolchain=D:/Android/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=D:/Android/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64/sysroot   -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -fPIE -o CMakeFiles/cmTC_c7bb8.dir/CheckSymbolExists.c.o   -c CheckSymbolExists.c
+CheckSymbolExists.c:8:19: error: use of undeclared identifier '__GLIBC__'
+  return ((int*)(&__GLIBC__))[argc];
+                  ^
+1 error generated.
+ninja: build stopped: subcommand failed.
+
+
+File C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <stdlib.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef __GLIBC__
+  return ((int*)(&__GLIBC__))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+Performing C++ SOURCE FILE Test _OFFT_IS_64BIT failed with the following output:
+Change Dir: C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/ninja-win/ninja.exe cmTC_4975e && [1/2] Building CXX object CMakeFiles/cmTC_4975e.dir/src.cxx.o
+FAILED: CMakeFiles/cmTC_4975e.dir/src.cxx.o 
+D:\Android\ndk\21.1.6352462\toolchains\llvm\prebuilt\windows-x86_64\bin\clang++.exe --target=i686-none-linux-android21 --gcc-toolchain=D:/Android/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=D:/Android/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64/sysroot  -D_LARGEFILE64_SOURCE  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -D_OFFT_IS_64BIT -fPIE -o CMakeFiles/cmTC_4975e.dir/src.cxx.o -c src.cxx
+src.cxx:8:22: error: 'off_t_is_large' declared as an array with a negative size
+  int off_t_is_large[(LARGE_OFF_T % 2147483629 == 721 && LARGE_OFF_T % 2147483647 == 1) ? 1 : -1];
+                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+ninja: build stopped: subcommand failed.
+
+
+Source file was:
+
+#include <sys/types.h>
+ /* Check that off_t can represent 2**63 - 1 correctly.
+    We can't simply define LARGE_OFF_T to be 9223372036854775807,
+    since some C++ compilers masquerading as C compilers
+    incorrectly reject 9223372036854775807.  */
+#define LARGE_OFF_T (((off_t) 1 << 62) - 1 + ((off_t) 1 << 62))
+  int off_t_is_large[(LARGE_OFF_T % 2147483629 == 721 && LARGE_OFF_T % 2147483647 == 1) ? 1 : -1];
+  int main() { return 0; }
+

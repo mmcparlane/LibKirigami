@@ -1,0 +1,141 @@
+{
+	"BUILD_DIR" : "C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami/src/libkirigami/KF5Kirigami2_autogen",
+	"CMAKE_BINARY_DIR" : "C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami",
+	"CMAKE_CURRENT_BINARY_DIR" : "C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami/src/libkirigami",
+	"CMAKE_CURRENT_SOURCE_DIR" : "D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/libkirigami",
+	"CMAKE_EXECUTABLE" : "C:/Program Files/CMake/bin/cmake.exe",
+	"CMAKE_SOURCE_DIR" : "D:/ISCO/flowlinkapps/Kirigami/src/kirigami",
+	"DEP_FILE" : "C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami/src/libkirigami/KF5Kirigami2_autogen/deps",
+	"DEP_FILE_RULE_NAME" : "src/libkirigami/KF5Kirigami2_autogen/timestamp",
+	"HEADERS" : 
+	[
+		[
+			"C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami/src/libkirigami/loggingcategory.h",
+			"Mu",
+			"EJRQKI7XPS/moc_loggingcategory.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/libkirigami/basictheme_p.h",
+			"Mu",
+			"EWIEGA46WW/moc_basictheme_p.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/libkirigami/kirigamipluginfactory.h",
+			"Mu",
+			"EWIEGA46WW/moc_kirigamipluginfactory.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/libkirigami/platformtheme.h",
+			"Mu",
+			"EWIEGA46WW/moc_platformtheme.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/libkirigami/tabletmodewatcher.h",
+			"Mu",
+			"EWIEGA46WW/moc_tabletmodewatcher.cpp"
+		]
+	],
+	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
+	"INCLUDE_DIR" : "C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami/src/libkirigami/KF5Kirigami2_autogen/include",
+	"MOC_COMPILATION_FILE" : "C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami/src/libkirigami/KF5Kirigami2_autogen/mocs_compilation.cpp",
+	"MOC_DEFINITIONS" : 
+	[
+		"KF_DEPRECATED_WARNINGS_SINCE=0x060000",
+		"KIRIGAMI_BUILD_TYPE_STATIC",
+		"QT_CORE_LIB",
+		"QT_DEPRECATED_WARNINGS_SINCE=0x060000",
+		"QT_DISABLE_DEPRECATED_BEFORE=0x050d00",
+		"QT_GUI_LIB",
+		"QT_NETWORK_LIB",
+		"QT_NO_CAST_FROM_ASCII",
+		"QT_NO_CAST_FROM_BYTEARRAY",
+		"QT_NO_CAST_TO_ASCII",
+		"QT_NO_FOREACH",
+		"QT_NO_NARROWING_CONVERSIONS_IN_CONNECT",
+		"QT_NO_SIGNALS_SLOTS_KEYWORDS",
+		"QT_NO_URL_CAST_FROM_STRING",
+		"QT_PLUGIN",
+		"QT_QMLMODELS_LIB",
+		"QT_QML_LIB",
+		"QT_QUICKCONTROLS2_LIB",
+		"QT_QUICK_LIB",
+		"QT_STATICPLUGIN=1",
+		"QT_STRICT_ITERATORS",
+		"QT_USE_QSTRINGBUILDER",
+		"_FILE_OFFSET_BITS=64",
+		"_LARGEFILE64_SOURCE"
+	],
+	"MOC_DEPEND_FILTERS" : 
+	[
+		[
+			"Q_PLUGIN_METADATA",
+			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
+		]
+	],
+	"MOC_INCLUDES" : 
+	[
+		"C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami/src/libkirigami",
+		"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/libkirigami",
+		"D:/Qt_Pro/5.15.0/android/include",
+		"D:/Qt_Pro/5.15.0/android/include/QtCore",
+		"D:/Qt_Pro/5.15.0/android/mkspecs/android-clang",
+		"D:/Qt_Pro/5.15.0/android/include/QtQml",
+		"D:/Qt_Pro/5.15.0/android/include/QtNetwork",
+		"D:/Qt_Pro/5.15.0/android/include/QtQuick",
+		"D:/Qt_Pro/5.15.0/android/include/QtQmlModels",
+		"D:/Qt_Pro/5.15.0/android/include/QtGui",
+		"D:/Qt_Pro/5.15.0/android/include/QtQuickControls2",
+		"D:/Android/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1",
+		"D:/Android/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/local/include",
+		"D:/Android/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64/lib64/clang/9.0.8/include",
+		"D:/Android/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/i686-linux-android",
+		"D:/Android/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include"
+	],
+	"MOC_MACRO_NAMES" : [ "Q_OBJECT", "Q_GADGET", "Q_NAMESPACE", "Q_NAMESPACE_EXPORT" ],
+	"MOC_OPTIONS" : [],
+	"MOC_PATH_PREFIX" : true,
+	"MOC_PREDEFS_CMD" : 
+	[
+		"D:/Android/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe",
+		"-dM",
+		"-E",
+		"-c",
+		"C:/Program Files/CMake/share/cmake-3.17/Modules/CMakeCXXCompilerABI.cpp",
+		"--target=i686-none-linux-android21"
+	],
+	"MOC_PREDEFS_FILE" : "C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami/src/libkirigami/KF5Kirigami2_autogen/moc_predefs.h",
+	"MOC_RELAXED_MODE" : false,
+	"MOC_SKIP" : [],
+	"MULTI_CONFIG" : false,
+	"PARALLEL" : 4,
+	"PARSE_CACHE_FILE" : "C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami/src/libkirigami/CMakeFiles/KF5Kirigami2_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "D:/Qt_Pro/5.15.0/android/bin/moc.exe",
+	"QT_UIC_EXECUTABLE" : "",
+	"QT_VERSION_MAJOR" : 5,
+	"QT_VERSION_MINOR" : 15,
+	"SETTINGS_FILE" : "C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami/src/libkirigami/CMakeFiles/KF5Kirigami2_autogen.dir/AutogenUsed.txt",
+	"SOURCES" : 
+	[
+		[
+			"C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami/src/libkirigami/loggingcategory.cpp",
+			"Mu"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/libkirigami/basictheme.cpp",
+			"Mu"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/libkirigami/kirigamipluginfactory.cpp",
+			"Mu"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/libkirigami/platformtheme.cpp",
+			"Mu"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/libkirigami/tabletmodewatcher.cpp",
+			"Mu"
+		]
+	],
+	"VERBOSITY" : 0
+}

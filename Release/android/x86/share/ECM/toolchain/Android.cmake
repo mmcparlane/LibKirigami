@@ -110,30 +110,9 @@
 # See Android documentation on how to create a keystore to use
 
 # =============================================================================
-# Copyright 2014 Aleix Pol i Gonzalez <aleixpol@kde.org>
+# SPDX-FileCopyrightText: 2014 Aleix Pol i Gonzalez <aleixpol@kde.org>
 #
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions
-# are met:
-#
-# 1. Redistributions of source code must retain the copyright
-#    notice, this list of conditions and the following disclaimer.
-# 2. Redistributions in binary form must reproduce the copyright
-#    notice, this list of conditions and the following disclaimer in the
-#    documentation and/or other materials provided with the distribution.
-# 3. The name of the author may not be used to endorse or promote products
-#    derived from this software without specific prior written permission.
-#
-# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
-# IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
-# OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-# IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
-# INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
-# NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
-# THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+# SPDX-License-Identifier: BSD-3-Clause
 
 cmake_minimum_required(VERSION "3.7")
 
@@ -176,7 +155,17 @@ include(${CMAKE_ANDROID_NDK}/build/cmake/android.toolchain.cmake REQUIRED)
 # these aren't set yet at this point by the Android toolchain, but without
 # those the find_package() call in ECMAndroidDeployQt will fail
 set(CMAKE_FIND_LIBRARY_PREFIXES "lib")
-set(CMAKE_FIND_LIBRARY_SUFFIXES ".so" ".a")
+set(CMAKE_FIND_LIBRARY_SUFFIXES "_${CMAKE_ANDROID_ARCH_ABI}.so" ".so" ".a")
+
+# Work around Qt messing with CMAKE_SHARED_LIBRARY_SUFFIX and thus breaking find_library()
+# Unfortunately, just setting CMAKE_FIND_LIBRARY_SUFFIXES here won't help, as this will
+# be subsequently overwritten.
+macro(addAbiSuffix _var _access)
+     if (${_access} STREQUAL "MODIFIED_ACCESS")
+         list(PREPEND CMAKE_FIND_LIBRARY_SUFFIXES "_${CMAKE_ANDROID_ARCH_ABI}.so")
+     endif()
+endmacro()
+variable_watch(CMAKE_FIND_LIBRARY_SUFFIXES addAbiSuffix)
 
 # determine STL architecture, which is using a different format than ANDROID_ARCH_ABI
 string(REGEX REPLACE "-(clang)?([0-9].[0-9])?$" "" ECM_ANDROID_STL_ARCH ${ANDROID_TOOLCHAIN_NAME})

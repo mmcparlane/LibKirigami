@@ -1,0 +1,351 @@
+{
+	"BUILD_DIR" : "C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami/src/kirigamiplugin_autogen",
+	"CMAKE_BINARY_DIR" : "C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami",
+	"CMAKE_CURRENT_BINARY_DIR" : "C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami/src",
+	"CMAKE_CURRENT_SOURCE_DIR" : "D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src",
+	"CMAKE_EXECUTABLE" : "C:/Program Files/CMake/bin/cmake.exe",
+	"CMAKE_SOURCE_DIR" : "D:/ISCO/flowlinkapps/Kirigami/src/kirigami",
+	"DEP_FILE" : "C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami/src/kirigamiplugin_autogen/deps",
+	"DEP_FILE_RULE_NAME" : "src/kirigamiplugin_autogen/timestamp",
+	"HEADERS" : 
+	[
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/avatar.h",
+			"Mu",
+			"EWIEGA46WW/moc_avatar.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/colorutils.h",
+			"Mu",
+			"EWIEGA46WW/moc_colorutils.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/columnview.h",
+			"Mu",
+			"EWIEGA46WW/moc_columnview.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/columnview_p.h",
+			"Mu",
+			"EWIEGA46WW/moc_columnview_p.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/delegaterecycler.h",
+			"Mu",
+			"EWIEGA46WW/moc_delegaterecycler.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/enums.h",
+			"Mu",
+			"EWIEGA46WW/moc_enums.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/formlayoutattached.h",
+			"Mu",
+			"EWIEGA46WW/moc_formlayoutattached.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/icon.h",
+			"Mu",
+			"EWIEGA46WW/moc_icon.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/imagecolors.h",
+			"Mu",
+			"EWIEGA46WW/moc_imagecolors.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/kirigamiplugin.h",
+			"Mu",
+			"EWIEGA46WW/moc_kirigamiplugin.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/libkirigami/basictheme_p.h",
+			"Mu",
+			"WDHU5EZQ55/moc_basictheme_p.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/libkirigami/kirigamipluginfactory.h",
+			"Mu",
+			"WDHU5EZQ55/moc_kirigamipluginfactory.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/libkirigami/platformtheme.h",
+			"Mu",
+			"WDHU5EZQ55/moc_platformtheme.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/libkirigami/tabletmodewatcher.h",
+			"Mu",
+			"WDHU5EZQ55/moc_tabletmodewatcher.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/mnemonicattached.h",
+			"Mu",
+			"EWIEGA46WW/moc_mnemonicattached.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/pagepool.h",
+			"Mu",
+			"EWIEGA46WW/moc_pagepool.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/pagerouter.h",
+			"Mu",
+			"EWIEGA46WW/moc_pagerouter.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/scenegraph/paintedrectangleitem.h",
+			"Mu",
+			"3GMBWEERUK/moc_paintedrectangleitem.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/scenegraph/shadowedborderrectanglematerial.h",
+			"Mu",
+			"3GMBWEERUK/moc_shadowedborderrectanglematerial.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/scenegraph/shadowedbordertexturematerial.h",
+			"Mu",
+			"3GMBWEERUK/moc_shadowedbordertexturematerial.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/scenegraph/shadowedrectanglematerial.h",
+			"Mu",
+			"3GMBWEERUK/moc_shadowedrectanglematerial.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/scenegraph/shadowedrectanglenode.h",
+			"Mu",
+			"3GMBWEERUK/moc_shadowedrectanglenode.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/scenegraph/shadowedtexturematerial.h",
+			"Mu",
+			"3GMBWEERUK/moc_shadowedtexturematerial.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/scenegraph/shadowedtexturenode.h",
+			"Mu",
+			"3GMBWEERUK/moc_shadowedtexturenode.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/scenepositionattached.h",
+			"Mu",
+			"EWIEGA46WW/moc_scenepositionattached.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/settings.h",
+			"Mu",
+			"EWIEGA46WW/moc_settings.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/shadowedrectangle.h",
+			"Mu",
+			"EWIEGA46WW/moc_shadowedrectangle.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/shadowedtexture.h",
+			"Mu",
+			"EWIEGA46WW/moc_shadowedtexture.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/toolbarlayout.h",
+			"Mu",
+			"EWIEGA46WW/moc_toolbarlayout.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/toolbarlayoutdelegate.h",
+			"Mu",
+			"EWIEGA46WW/moc_toolbarlayoutdelegate.cpp"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/wheelhandler.h",
+			"Mu",
+			"EWIEGA46WW/moc_wheelhandler.cpp"
+		]
+	],
+	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
+	"INCLUDE_DIR" : "C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami/src/kirigamiplugin_autogen/include",
+	"MOC_COMPILATION_FILE" : "C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami/src/kirigamiplugin_autogen/mocs_compilation.cpp",
+	"MOC_DEFINITIONS" : 
+	[
+		"KF_DEPRECATED_WARNINGS_SINCE=0x060000",
+		"KIRIGAMI_BUILD_TYPE_STATIC",
+		"QT_CONCURRENT_LIB",
+		"QT_CORE_LIB",
+		"QT_DEPRECATED_WARNINGS_SINCE=0x060000",
+		"QT_DISABLE_DEPRECATED_BEFORE=0x050d00",
+		"QT_GUI_LIB",
+		"QT_NETWORK_LIB",
+		"QT_NO_CAST_FROM_ASCII",
+		"QT_NO_CAST_FROM_BYTEARRAY",
+		"QT_NO_CAST_TO_ASCII",
+		"QT_NO_FOREACH",
+		"QT_NO_NARROWING_CONVERSIONS_IN_CONNECT",
+		"QT_NO_SIGNALS_SLOTS_KEYWORDS",
+		"QT_NO_URL_CAST_FROM_STRING",
+		"QT_PLUGIN",
+		"QT_QMLMODELS_LIB",
+		"QT_QML_LIB",
+		"QT_QUICKCONTROLS2_LIB",
+		"QT_QUICK_LIB",
+		"QT_STATICPLUGIN=1",
+		"QT_STRICT_ITERATORS",
+		"QT_USE_QSTRINGBUILDER",
+		"_FILE_OFFSET_BITS=64",
+		"_LARGEFILE64_SOURCE"
+	],
+	"MOC_DEPEND_FILTERS" : 
+	[
+		[
+			"Q_PLUGIN_METADATA",
+			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
+		]
+	],
+	"MOC_INCLUDES" : 
+	[
+		"C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami/src",
+		"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src",
+		"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/libkirigami",
+		"C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami/src/libkirigami",
+		"D:/Qt_Pro/5.15.0/android/include",
+		"D:/Qt_Pro/5.15.0/android/include/QtCore",
+		"D:/Qt_Pro/5.15.0/android/mkspecs/android-clang",
+		"D:/Qt_Pro/5.15.0/android/include/QtQml",
+		"D:/Qt_Pro/5.15.0/android/include/QtNetwork",
+		"D:/Qt_Pro/5.15.0/android/include/QtQuick",
+		"D:/Qt_Pro/5.15.0/android/include/QtQmlModels",
+		"D:/Qt_Pro/5.15.0/android/include/QtGui",
+		"D:/Qt_Pro/5.15.0/android/include/QtQuickControls2",
+		"D:/Qt_Pro/5.15.0/android/include/QtConcurrent",
+		"D:/Android/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1",
+		"D:/Android/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/local/include",
+		"D:/Android/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64/lib64/clang/9.0.8/include",
+		"D:/Android/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/i686-linux-android",
+		"D:/Android/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include"
+	],
+	"MOC_MACRO_NAMES" : [ "Q_OBJECT", "Q_GADGET", "Q_NAMESPACE", "Q_NAMESPACE_EXPORT" ],
+	"MOC_OPTIONS" : [ "-Muri=org.kde.kirigami" ],
+	"MOC_PATH_PREFIX" : true,
+	"MOC_PREDEFS_CMD" : 
+	[
+		"D:/Android/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe",
+		"-dM",
+		"-E",
+		"-c",
+		"C:/Program Files/CMake/share/cmake-3.17/Modules/CMakeCXXCompilerABI.cpp",
+		"--target=i686-none-linux-android21"
+	],
+	"MOC_PREDEFS_FILE" : "C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami/src/kirigamiplugin_autogen/moc_predefs.h",
+	"MOC_RELAXED_MODE" : false,
+	"MOC_SKIP" : [],
+	"MULTI_CONFIG" : false,
+	"PARALLEL" : 4,
+	"PARSE_CACHE_FILE" : "C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami/src/CMakeFiles/kirigamiplugin_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "D:/Qt_Pro/5.15.0/android/bin/moc.exe",
+	"QT_UIC_EXECUTABLE" : "",
+	"QT_VERSION_MAJOR" : 5,
+	"QT_VERSION_MINOR" : 15,
+	"SETTINGS_FILE" : "C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/build/kirigami/src/CMakeFiles/kirigamiplugin_autogen.dir/AutogenUsed.txt",
+	"SOURCES" : 
+	[
+		[ "D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/avatar.cpp", "Mu" ],
+		[ "D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/colorutils.cpp", "Mu" ],
+		[ "D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/columnview.cpp", "Mu" ],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/delegaterecycler.cpp",
+			"Mu"
+		],
+		[ "D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/enums.cpp", "Mu" ],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/formlayoutattached.cpp",
+			"Mu"
+		],
+		[ "D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/icon.cpp", "Mu" ],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/imagecolors.cpp",
+			"Mu"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/kirigamiplugin.cpp",
+			"Mu"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/libkirigami/basictheme.cpp",
+			"Mu"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/libkirigami/kirigamipluginfactory.cpp",
+			"Mu"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/libkirigami/platformtheme.cpp",
+			"Mu"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/libkirigami/tabletmodewatcher.cpp",
+			"Mu"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/mnemonicattached.cpp",
+			"Mu"
+		],
+		[ "D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/pagepool.cpp", "Mu" ],
+		[ "D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/pagerouter.cpp", "Mu" ],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/scenegraph/paintedrectangleitem.cpp",
+			"Mu"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/scenegraph/shadowedborderrectanglematerial.cpp",
+			"Mu"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/scenegraph/shadowedbordertexturematerial.cpp",
+			"Mu"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/scenegraph/shadowedrectanglematerial.cpp",
+			"Mu"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/scenegraph/shadowedrectanglenode.cpp",
+			"Mu"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/scenegraph/shadowedtexturematerial.cpp",
+			"Mu"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/scenegraph/shadowedtexturenode.cpp",
+			"Mu"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/scenepositionattached.cpp",
+			"Mu"
+		],
+		[ "D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/settings.cpp", "Mu" ],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/shadowedrectangle.cpp",
+			"Mu"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/shadowedtexture.cpp",
+			"Mu"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/toolbarlayout.cpp",
+			"Mu"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/toolbarlayoutdelegate.cpp",
+			"Mu"
+		],
+		[
+			"D:/ISCO/flowlinkapps/Kirigami/src/kirigami/src/wheelhandler.cpp",
+			"Mu"
+		]
+	],
+	"VERBOSITY" : 0
+}

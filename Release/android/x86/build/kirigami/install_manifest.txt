@@ -1,0 +1,14 @@
+C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/lib/cmake/KF5Kirigami2/KF5Kirigami2Config.cmake
+C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/lib/cmake/KF5Kirigami2/KF5Kirigami2ConfigVersion.cmake
+C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/lib/cmake/KF5Kirigami2/KF5Kirigami2Macros.cmake
+C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/lib/cmake/KF5Kirigami2/KF5Kirigami2Targets.cmake
+C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/lib/cmake/KF5Kirigami2/KF5Kirigami2Targets-debug.cmake
+C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/lib/qml/org/kde/kirigami.2/libkirigamiplugin.a
+C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/lib/libKF5Kirigami2.a
+C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/include/KF5/Kirigami2/PlatformTheme
+C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/include/KF5/Kirigami2/KirigamiPluginFactory
+C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/include/KF5/Kirigami2/TabletModeWatcher
+C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/include/KF5/Kirigami2/platformtheme.h
+C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/include/KF5/Kirigami2/kirigamipluginfactory.h
+C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/include/KF5/Kirigami2/tabletmodewatcher.h
+C:/Users/mtmcp/Documents/LibKirigami/Release/android/x86/mkspecs/modules/qt_Kirigami2.pri
