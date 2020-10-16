@@ -45,8 +45,12 @@
 # ``ANDROID_ABI``
 #     The ABI to use. See the ``sources/cxx-stl/gnu-libstdc++/*/libs``
 #     directories in the NDK. Default: ``armeabi-v7a``.
+# ``ANDROID_SDK_COMPILE_API``
+#     The platform API level to compile against. May be different from the NDK
+#     target. Default: newest installed version (e.g. android-30).
 # ``ANDROID_SDK_BUILD_TOOLS_REVISION``
-#     The build tools version to use. Default: ``21.1.1``.
+#     The build tools version to use.
+#     Default: newest installed version (e.g. ``30.0.2``).
 # ``ANDROID_EXTRA_LIBS``
 #     The ";"-separated list of full paths to libs to include in resulting APK.
 #
@@ -137,9 +141,18 @@ set_deprecated_variable(CMAKE_ANDROID_ARCH_ABI ANDROID_ABI "$ENV{ANDROID_ARCH_AB
 
 set(ANDROID_SDK_ROOT "$ENV{ANDROID_SDK_ROOT}" CACHE PATH "Android SDK path")
 
+file(GLOB platforms LIST_DIRECTORIES TRUE RELATIVE ${ANDROID_SDK_ROOT}/platforms ${ANDROID_SDK_ROOT}/platforms/*)
+list(SORT platforms COMPARE NATURAL)
+list(GET platforms -1 _default_platform)
+set(ANDROID_SDK_COMPILE_API "${_default_platform}" CACHE STRING "Android API Level")
+if(ANDROID_SDK_COMPILE_API MATCHES "^android-([0-9]+)$")
+    set(ANDROID_SDK_COMPILE_API ${CMAKE_MATCH_1})
+endif()
+
 file(GLOB build-tools LIST_DIRECTORIES TRUE RELATIVE ${ANDROID_SDK_ROOT}/build-tools ${ANDROID_SDK_ROOT}/build-tools/*)
-list(GET build-tools 0 _default_sdk)
-set(ANDROID_SDK_BUILD_TOOLS_REVISION "${_default_sdk}" CACHE STRING "Android API Level")
+list(SORT build-tools COMPARE NATURAL)
+list(GET build-tools -1 _default_sdk)
+set(ANDROID_SDK_BUILD_TOOLS_REVISION "${_default_sdk}" CACHE STRING "Android Build Tools version")
 
 set(CMAKE_SYSTEM_VERSION ${CMAKE_ANDROID_API})
 set(CMAKE_SYSTEM_NAME Android)
@@ -147,10 +160,39 @@ if (NOT CMAKE_ANDROID_STL_TYPE)
     set(CMAKE_ANDROID_STL_TYPE c++_shared)
 endif()
 
+# Workaround link failure at FindThreads in CXX-only mode,
+# armv7 really doesn't like mixing PIC/PIE code.
+# Since we only have to care about a single compiler,
+# hard-code the values here.
+if (NOT TARGET Threads::Threads)
+    set(Threads_FOUND TRUE)
+    set(CMAKE_THREAD_LIBS_INIT "-pthread")
+    add_library(Threads::Threads INTERFACE IMPORTED)
+    set_property(TARGET Threads::Threads PROPERTY INTERFACE_COMPILE_OPTIONS "-pthread")
+    set_property(TARGET Threads::Threads PROPERTY INTERFACE_LINK_LIBRARIES "-pthread")
+endif()
+
 # let the Android NDK toolchain file do the actual work
 set(ANDROID_PLATFORM "android-${CMAKE_ANDROID_API}")
 set(ANDROID_STL ${CMAKE_ANDROID_STL_TYPE})
 include(${CMAKE_ANDROID_NDK}/build/cmake/android.toolchain.cmake REQUIRED)
+
+## HACK: Remove when we can depend on NDK r22
+# Workaround issue https://github.com/android/ndk/issues/929
+if(ANDROID_NDK_MAJOR VERSION_LESS 22)
+    unset(CMAKE_SYSROOT)
+    set(ANDROID_SYSROOT_PREFIX "${ANDROID_TOOLCHAIN_ROOT}/sysroot/usr")
+
+    list(APPEND CMAKE_SYSTEM_INCLUDE_PATH
+      "${ANDROID_SYSROOT_PREFIX}/include/${CMAKE_LIBRARY_ARCHITECTURE}")
+    list(APPEND CMAKE_SYSTEM_INCLUDE_PATH "${ANDROID_SYSROOT_PREFIX}/include")
+
+    # Prepend in reverse order
+    list(PREPEND CMAKE_SYSTEM_LIBRARY_PATH
+      "${ANDROID_SYSROOT_PREFIX}/lib/${CMAKE_LIBRARY_ARCHITECTURE}")
+    list(PREPEND CMAKE_SYSTEM_LIBRARY_PATH
+      "${ANDROID_SYSROOT_PREFIX}/lib/${CMAKE_LIBRARY_ARCHITECTURE}/${ANDROID_PLATFORM_LEVEL}")
+endif()
 
 # these aren't set yet at this point by the Android toolchain, but without
 # those the find_package() call in ECMAndroidDeployQt will fail

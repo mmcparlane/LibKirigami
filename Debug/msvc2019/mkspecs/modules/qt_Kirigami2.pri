@@ -1,6 +1,6 @@
-QT.Kirigami2.VERSION = 5.74.0
+QT.Kirigami2.VERSION = 5.75.0
 QT.Kirigami2.MAJOR_VERSION = 5
-QT.Kirigami2.MINOR_VERSION = 74
+QT.Kirigami2.MINOR_VERSION = 75
 QT.Kirigami2.PATCH_VERSION = 0
 QT.Kirigami2.name = KF5Kirigami2
 QT.Kirigami2.module = KF5Kirigami2
