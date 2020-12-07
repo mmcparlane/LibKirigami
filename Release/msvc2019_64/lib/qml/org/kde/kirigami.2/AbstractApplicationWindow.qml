@@ -4,7 +4,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-import QtQuick 2.5
+import QtQuick 2.12
 import QtQuick.Controls 2.0 as QQC2
 import "templates/private"
 import org.kde.kirigami 2.4
@@ -69,10 +69,11 @@ QQC2.ApplicationWindow {
 
     /**
      * pageStack: StackView
-     * Readonly.
+     * 
      * The stack used to allocate the pages and to manage the transitions
      * between them.
-     * Put a container here, such as QQuickControls PageStack
+     * 
+     * Put a container here, such as QQuickControls StackView
      */
     property Item pageStack
     LayoutMirroring.enabled: Qt.application.layoutDirection == Qt.RightToLeft
@@ -219,6 +220,20 @@ QQC2.ApplicationWindow {
      */
     property bool reachableModeEnabled: true
 
+    /**
+     * A standard action that will quit the application when triggered. Its properties have the
+     * following values:
+     * @code
+     * Action {
+     *     text: "Quit"
+     *     icon.name: "application-exit-symbolic";
+     *     shortcut: StandardKey.Quit
+     *     [...]
+     * @endcode
+     * @since 5.76
+     */
+    readonly property Action quitAction: _quitAction
+
     color: Theme.backgroundColor
 
     MouseArea {
@@ -306,8 +321,11 @@ QQC2.ApplicationWindow {
         property QtObject __passiveNotification
     }
 
-    Shortcut {
-        sequence: StandardKey.Quit
-        onActivated: root.close()
+    Action {
+        id: _quitAction
+        text: qsTr("Quit")
+        icon.name: "application-exit-symbolic";
+        shortcut: StandardKey.Quit
+        onTriggered: root.close()
     }
 }

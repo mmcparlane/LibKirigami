@@ -97,11 +97,7 @@ Kirigami.Action {
 
     checkable: true
 
-    /**
-      * Pushes page onto layer/stack while loading page into
-      * associated PagePool (if it hasn't already been loaded).
-      */
-    function pushPage() {
+    onTriggered: {
         if (page.length == 0 || !pagePool || !pageStack) {
             return;
         }
@@ -161,8 +157,6 @@ Kirigami.Action {
             }
         }
     }
-
-    onTriggered: pushPage()
 
     // Exposing this as a property is required as Action does not have a default property
     property QtObject _private: QtObject {

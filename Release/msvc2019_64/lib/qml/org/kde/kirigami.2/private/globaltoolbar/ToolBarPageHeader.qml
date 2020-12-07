@@ -5,6 +5,7 @@
  */
 
 import QtQuick 2.5
+import QtQuick.Window 2.5
 import QtQuick.Controls 2.0 as Controls
 import QtQuick.Layouts 1.2
 import org.kde.kirigami 2.14
@@ -20,6 +21,15 @@ AbstractPageHeader {
     MouseArea {
         anchors.fill: parent
         onClicked: page.forceActiveFocus()
+        // positionChanged() is only emitted when pressed as long as hoverEnabled is false
+        onPositionChanged: {
+            if (Window.window && (typeof Window.window.startSystemMove === "function") && mouse.source === Qt.MouseEventNotSynthesized) {
+                Window.window.startSystemMove();
+                // NOTE: only way to ensure ungrabMouse() is called from QML
+                visible=false;
+                visible=true;
+            }
+        }
     }
 
     RowLayout {
