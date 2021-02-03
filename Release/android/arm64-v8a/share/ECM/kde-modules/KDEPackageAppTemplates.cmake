@@ -83,35 +83,59 @@ function(kde_package_app_templates)
         message(FATAL_ERROR "No INSTALL_DIR argument given to kde_package_app_templates")
     endif()
 
-    foreach(_templateName ${ARG_TEMPLATES})
+    find_program(_tar_executable NAMES gtar tar)
+    if(_tar_executable)
+        execute_process(
+            COMMAND ${_tar_executable} --version
+            TIMEOUT 3
+            RESULT_VARIABLE _tar_exit
+            OUTPUT_VARIABLE _tar_version
+        )
+        if("${_tar_exit}" EQUAL 0 AND "${_tar_version}" MATCHES "GNU tar")
+            set(GNU_TAR_FOUND ON)
+        else()
+            set(GNU_TAR_FOUND OFF)
+        endif()
+    else()
+        set(GNU_TAR_FOUND OFF)
+    endif()
 
+    foreach(_templateName ${ARG_TEMPLATES})
         get_filename_component(_tmp_file ${_templateName} ABSOLUTE)
         get_filename_component(_baseName ${_tmp_file} NAME_WE)
         set(_template ${CMAKE_CURRENT_BINARY_DIR}/${_baseName}.tar.bz2)
 
-        file(GLOB _files "${CMAKE_CURRENT_SOURCE_DIR}/${_templateName}/*")
-        set(_deps)
-        foreach(_file ${_files})
-            get_filename_component(_fileName ${_file} NAME)
-            string(COMPARE NOTEQUAL ${_fileName} .kdev_ignore _v1)
-            string(REGEX MATCH "\\.svn" _v2 ${_fileName})
-            if(WIN32)
-                string(REGEX MATCH "_svn" _v3 ${_fileName})
-            else(WIN32)
-                set(_v3 FALSE)
-            endif()
-            if (_v1 AND NOT _v2 AND NOT _v3)
-                set(_deps ${_deps} ${_file})
-            endif ()
-        endforeach()
-
+        # CONFIGURE_DEPENDS is only available for cmake >= 3.12
+        if(NOT CMAKE_VERSION VERSION_LESS "3.12.0")
+            # also enlist directories as deps to catch file removals
+            file(GLOB_RECURSE _subdirs_entries LIST_DIRECTORIES true CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${_templateName}/*")
+        else()
+            file(GLOB_RECURSE _subdirs_entries LIST_DIRECTORIES true "${CMAKE_CURRENT_SOURCE_DIR}/${_templateName}/*")
+            # custom code to implement CONFIGURE_DEPENDS
+            foreach(_direntry ${_subdirs_entries})
+                if(IS_DIRECTORY ${_direntry})
+                    set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${_direntry})
+                endif()
+            endforeach()
+        endif()
         add_custom_target(${_baseName} ALL DEPENDS ${_template})
 
-        add_custom_command(OUTPUT ${_template}
-             COMMAND ${CMAKE_COMMAND} -E tar "cvfj" ${_template} .
-             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${_templateName}
-        )
-
+        if(GNU_TAR_FOUND)
+            # Make tar archive reproducible, the arguments are only available with GNU tar
+            add_custom_command(OUTPUT ${_template}
+                COMMAND ${_tar_executable} ARGS -c ${CMAKE_CURRENT_SOURCE_DIR}/${_templateName}
+                   --exclude .kdev_ignore --exclude .svn --sort=name --mode=go=rX,u+rw,a-s --owner=root
+                   --group=root --numeric-owner -j -v -f ${_template} .
+                WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${_templateName}
+                DEPENDS ${_subdirs_entries}
+            )
+        else()
+            add_custom_command(OUTPUT ${_template}
+                COMMAND ${CMAKE_COMMAND} -E tar "cvfj" ${_template} .
+                WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${_templateName}
+                DEPENDS ${_subdirs_entries}
+            )
+        endif()
 
         install(FILES ${_template} DESTINATION ${ARG_INSTALL_DIR})
         set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES "${_template}")

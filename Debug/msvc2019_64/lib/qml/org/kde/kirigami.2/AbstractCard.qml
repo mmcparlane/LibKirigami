@@ -19,7 +19,7 @@ import "private"
  * for cards, use the Card component.
  *
  * @see Card
- * @inherits T.AbstractCard
+ * @inherits org::kde::kirigami::templates::AbstractCard
  * @since 2.4
  */
 T.AbstractCard {
@@ -40,12 +40,6 @@ T.AbstractCard {
                 }
             }
             return Theme.backgroundColor
-        }
-        Behavior on color {
-            ColorAnimation {
-                duration: Units.longDuration
-                easing.type: Easing.InOutQuad
-            }
         }
     }
 }

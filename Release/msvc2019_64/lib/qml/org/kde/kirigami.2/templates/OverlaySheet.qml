@@ -140,12 +140,13 @@ QtObject {
         contentItemParent.forceActiveFocus();
         openAnimation.running = true;
         root.sheetOpen = true;
+        contentLayout.initialHeight = contentLayout.height
         mainItem.visible = true;
     }
 
     function close() {
         if (root.sheetOpen) {
-            closeAnimation.running = true;
+            root.sheetOpen = false
         }
     }
 
@@ -174,7 +175,7 @@ QtObject {
         if (sheetOpen) {
             open();
         } else {
-            closeAnimation.running = true;
+            closeAnimation.restart()
             Qt.inputMethod.hide();
             root.parent.forceActiveFocus();
         }
@@ -226,15 +227,17 @@ QtObject {
         }
         
         onPressed: {
-            var pos = mapToItem(contentLayout, mouse.x, mouse.y);
-            if (!contentLayout.contains(pos)) {
-                root.close();
-            } else if (mouseHover.hovered) { // only on mouse event, not touch
+            let pos = mapToItem(contentLayout, mouse.x, mouse.y);
+            if (contentLayout.contains(pos) && mouseHover.hovered) { // only on mouse event, not touch
                 // disable dragging the sheet with a mouse
                 outerFlickable.interactive = false
             }
         }
         onReleased: {
+            let pos = mapToItem(contentLayout, mouse.x, mouse.y);
+            if (!contentLayout.contains(pos)) {
+                root.close();
+            }
             // enable dragging of sheet once mouse is not clicked
             outerFlickable.interactive = true
         }
@@ -288,7 +291,7 @@ QtObject {
                 target: outerFlickable
                 properties: "contentY"
                 from: -outerFlickable.height
-                to: Math.max(0, outerFlickable.height - outerFlickable.contentHeight + headerItem.height + footerItem.height) + outerFlickable.topMargin/2 - contentLayout.height/2
+                to: outerFlickable.openPosition
                 duration: Units.longDuration
                 easing.type: Easing.OutQuad
             }
@@ -307,7 +310,7 @@ QtObject {
             properties: "contentY"
             from: outerFlickable.contentY
             to: outerFlickable.visibleArea.yPosition < (1 - outerFlickable.visibleArea.heightRatio)/2 || scrollView.flickableItem.contentHeight < outerFlickable.height
-                ? Math.max(0, outerFlickable.height - outerFlickable.contentHeight + headerItem.height + footerItem.height) + outerFlickable.topMargin/2 - contentLayout.height/2
+                ? outerFlickable.openPosition
                 : outerFlickable.contentHeight - outerFlickable.height + outerFlickable.topEmptyArea + headerItem.height + footerItem.height
             duration: Units.longDuration
             easing.type: Easing.OutQuad
@@ -319,6 +322,7 @@ QtObject {
                 NumberAnimation {
                     target: outerFlickable
                     properties: "contentY"
+                    from: outerFlickable.contentY + (contentLayout.initialHeight - contentLayout.height)
                     to: outerFlickable.visibleArea.yPosition < (1 - outerFlickable.visibleArea.heightRatio)/2 ? -mainItem.height : outerFlickable.contentHeight
                     duration: Units.longDuration
                     easing.type: Easing.InQuad
@@ -333,8 +337,9 @@ QtObject {
             }
             ScriptAction {
                 script: {
+                    contentLayout.initialHeight = 0
                     scrollView.flickableItem.contentY = -mainItem.height;
-                    mainItem.visible = root.sheetOpen = false;
+                    mainItem.visible = false;
                 }
             }
         }
@@ -388,10 +393,21 @@ QtObject {
 
         Connections {
             target: scrollView.flickableItem
+            property real oldContentHeight: 0
             onContentHeightChanged: {
                 if (openAnimation.running) {
                     openAnimation.running = false;
                     open();
+                } else {
+                    // repositioning is relevant only when the content height is less than the viewport height.
+                    // In that case the sheet looks like a dialog and shouldbe centered. there is also a corner case when now is bigger then the viewport but prior to the
+                    // resize event it was smaller, also in this case we need repositioning
+                    if (scrollView.flickableItem.contentHeight < outerFlickable.height
+                        || scrollView.flickableItem.oldContentHeight < outerFlickable.height
+                    ) {
+                        outerFlickable.adjustPosition();
+                    }
+                    oldContentHeight = scrollView.flickableItem.contentHeight
                 }
             }
         }
@@ -407,7 +423,16 @@ QtObject {
 
             readonly property int topEmptyArea: Math.max(height-scrollView.flickableItem.contentHeight, Units.gridUnit * 3)
 
+            readonly property real openPosition: Math.max(0, outerFlickable.height - outerFlickable.contentHeight + headerItem.height + footerItem.height) + height/2 - contentLayout.height/2;
+            onOpenPositionChanged: {
+                if (openAnimation.running) {
+                    openAnimation.running = false;
+                    root.open();
+                }
+            }
+
             property int oldContentY: NaN
+            property int oldContentHeight: 0
             property bool lastMovementWasDown: false
             property real startDraggingPos
             WheelHandler {
@@ -415,6 +440,10 @@ QtObject {
                 scrollFlickableTarget: false
             }
             
+            function adjustPosition() {
+                contentY = openPosition;
+            }
+
             // disable dragging the sheet with a mouse on header bar
             MouseArea {
                 anchors.fill: parent
@@ -483,16 +512,24 @@ QtObject {
                 }
 
                 if (shouldClose) {
-                    closeAnimation.restart();
+                    root.sheetOpen = false
                 } else if (scrollView.flickableItem.atYBeginning || scrollView.flickableItem.atYEnd) {
                     resetAnimation.restart();
                 }
             }
 
             onHeightChanged: {
-                if (scrollView.flickableItem.contentHeight < height) {
-                    contentYChanged();
+                adjustPosition();
+            }
+
+            onContentHeightChanged: {
+                // repositioning is relevant only when the content height is less than the viewport height.
+                // In that case the sheet looks like a dialog and shouldbe centered. there is also a corner case when now is bigger then the viewport but prior to the
+                // resize event it was smaller, also in this case we need repositioning
+                if (contentHeight < height || oldContentHeight < height) {
+                    adjustPosition();
                 }
+                oldContentHeight = contentHeight;
             }
 
             ColumnLayout {
@@ -503,6 +540,14 @@ QtObject {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: mainItem.contentItemPreferredWidth <= 0 ? mainItem.width : Math.max(mainItem.width/2, Math.min(mainItem.contentItemMaximumWidth, mainItem.contentItemPreferredWidth)) - root.leftInset - root.rightInset
                 height: Math.min(implicitHeight, parent.height) - root.topInset - root.bottomInset
+                property real initialHeight
+
+                Behavior on height {
+                    NumberAnimation {
+                        duration: Units.shortDuration
+                        easing.type: Easing.InOutCubic
+                    }
+                }
 
                 // Even though we're not actually using any shadows here,
                 // we're using a ShadowedRectangle instead of a regular
@@ -511,6 +556,7 @@ QtObject {
                 ShadowedRectangle {
                     id: headerItem
                     Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignTop
                     //Layout.margins: 1
                     visible: root.header || root.showCloseButton
                     implicitHeight: Math.max(headerParent.implicitHeight, closeIcon.height) + Units.smallSpacing * 2
@@ -525,19 +571,24 @@ QtObject {
                         implicitHeight: header ? header.implicitHeight : 0
                         anchors {
                             fill: parent
-                            leftMargin: root.leftPadding
+                            leftMargin: Units.largeSpacing
                             margins: Units.smallSpacing
                             rightMargin: closeIcon.width + Units.smallSpacing
                         }
                     }
                     Icon {
+                        // We want to position the close button in the top-right
+                        // corner if the header is very tall, but we want to
+                        // vertically center it in a short header
+                        readonly property bool tallHeader: headerItem.height > (Units.iconSizes.smallMedium + Units.largeSpacing + Units.largeSpacing)
                         id: closeIcon
                         anchors {
                             right: parent.right
-                            top: parent.top
+                            rightMargin: Units.largeSpacing
+                            top: tallHeader ? parent.top : undefined
+                            topMargin: tallHeader ? Units.largeSpacing : undefined
+                            verticalCenter: tallHeader ? undefined : headerItem.verticalCenter
                             margins: Units.smallSpacing
-                            rightMargin: root.rightPadding
-                            verticalCenter: headerItem.verticalCenter
                         }
                         z: 3
                         visible: root.showCloseButton
@@ -570,7 +621,11 @@ QtObject {
 
                     implicitHeight: flickableItem.contentHeight
                     Layout.maximumHeight: flickableItem.contentHeight
+
+                    Layout.alignment: Qt.AlignTop
                 }
+
+                Item { Layout.fillHeight: true }
 
                 Connections {
                     target: scrollView.flickableItem

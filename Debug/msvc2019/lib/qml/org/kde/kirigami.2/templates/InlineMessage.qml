@@ -40,14 +40,14 @@ import "private"
  *
  *     actions: [
  *         Kirigami.Action {
- *             iconName: "edit"
+ *             icon.name: "edit"
  *             text: "Action text"
  *             onTriggered: {
  *                 // do stuff
  *             }
  *         },
  *         Kirigami.Action {
- *             iconName: "edit"
+ *             icon.name: "edit"
  *             text: "Action text"
  *             onTriggered: {
  *                 // do stuff
@@ -78,7 +78,6 @@ T2.Control {
     signal linkActivated(string link)
 
     /**
-     * type: int
      * The message type. One of Information, Positive, Warning or Error.
      *
      * The default is Kirigami.MessageType.Information.
@@ -96,20 +95,17 @@ T2.Control {
     property IconPropertiesGroup icon: IconPropertiesGroup {}
 
     /**
-     * text: string
      * The message text.
      */
     property string text
 
     /**
-     * showCloseButton: bool
      * When enabled, a close button is shown.
      * The default is false.
      */
     property bool showCloseButton: false
 
     /**
-     * actions: list<Action>
      * The list of actions to show. Actions are added from left to
      * right. If more actions are set than can fit, an overflow menu is
      * provided.
@@ -117,7 +113,6 @@ T2.Control {
     property list<QtObject> actions
 
     /**
-     * animating: bool
      * True while the message item is animating.
      */
     readonly property bool animating: root.hasOwnProperty("_animating") && _animating

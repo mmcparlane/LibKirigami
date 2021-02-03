@@ -5,6 +5,7 @@
  */
 
 import QtQuick 2.12
+import QtQml 2.14
 import QtQuick.Templates 2.12 as T
 import QtQuick.Window 2.12
 import "templates/private"
@@ -25,7 +26,7 @@ import org.kde.kirigami 2.14
  *         actions: [
  *            Kirigami.Action {
  *                text: "View"
- *                iconName: "view-list-icons"
+ *                icon.name: "view-list-icons"
  *                Kirigami.Action {
  *                        text: "action 1"
  *                }
@@ -38,7 +39,7 @@ import org.kde.kirigami 2.14
  *            },
  *            Kirigami.Action {
  *                text: "Sync"
- *                iconName: "folder-sync"
+ *                icon.name: "folder-sync"
  *            }
  *         ]
  *     }
@@ -191,7 +192,8 @@ Item {
             menuBar.position = T.DialogButtonBox.Footer
         }
         menuBar.width = Qt.binding(() => root.contentItem.width)
-        menuBar.y = Qt.binding(() => -menuBar.height - (root.header.height ?? 0))
+        //FIXME: (root.header.height ?? 0) when we can depend from 5.15
+        menuBar.y = Qt.binding(() => -menuBar.height - (root.header.height ? root.header.height : 0))
     }
 
    /**
@@ -306,14 +308,14 @@ Item {
      *   [...]
      *     contextualActions: [
      *         Kirigami.Action {
-     *             iconName: "edit"
+     *             icon.name: "edit"
      *             text: "Action text"
      *             onTriggered: {
      *                 // do stuff
      *             }
      *         },
      *         Kirigami.Action {
-     *             iconName: "edit"
+     *             icon.name: "edit"
      *             text: "Action text"
      *             onTriggered: {
      *                 // do stuff
@@ -433,12 +435,14 @@ Item {
         target: globalDrawer
         property: "parent"
         value: overlay
+        restoreMode: Binding.RestoreBinding
     }
     Binding {
         when: contextDrawer !== undefined && root.visible
         target: contextDrawer
         property: "parent"
         value: overlay
+        restoreMode: Binding.RestoreBinding
     }
     onPageStackChanged: pageStack.parent = root.contentItem;
 

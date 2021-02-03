@@ -7,6 +7,10 @@
 # Note that none of the variables defined by this module provide any
 # information about the location of already-installed KDE software.
 #
+# Also sets ``CMAKE_INSTALL_PREFIX`` to the installation prefix of ECM,
+# unless that variable has been already explicitly set by something else
+# (since 5.61 and with CMake >= 3.7).
+#
 # Inclusion of this module defines the following variables:
 #
 # ``KDE_INSTALL_<dir>``
@@ -573,8 +577,12 @@ _define_relative(KNOTIFY5RCDIR DATAROOTDIR "knotifications5"
 _define_relative(KXMLGUI5DIR DATAROOTDIR "kxmlgui5"
     "kxmlgui .rc files"
     KXMLGUI_INSTALL_DIR)
-_define_relative(KTEMPLATESDIR DATAROOTDIR "kdevappwizard/templates"
-    "Kapptemplate and Kdevelop templates")
+_define_relative(KAPPTEMPLATESDIR DATAROOTDIR "kdevappwizard/templates"
+    "KAppTemplate and KDevelop templates"
+    KDE_INSTALL_KTEMPLATESDIR
+    )
+_define_relative(KFILETEMPLATESDIR DATAROOTDIR "kdevfiletemplates/templates"
+    "KDevelop file templates")
 _define_relative(LOGGINGCATEGORIESDIR DATAROOTDIR "qlogging-categories5"
     "Qt Logging categories files")
 _define_relative(JARDIR "" "jar"

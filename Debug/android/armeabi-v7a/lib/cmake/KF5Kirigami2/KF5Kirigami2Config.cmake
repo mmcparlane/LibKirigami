@@ -25,7 +25,7 @@ endmacro()
 ####################################################################################
 
 include(CMakeFindDependencyMacro)
-find_dependency(Qt5Core 5.12.0)
+find_dependency(Qt5Core 5.14.0)
 
 # Any changes in this ".cmake" file will be overwritten by CMake, the source is the ".cmake.in" file.
 

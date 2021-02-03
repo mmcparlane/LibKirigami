@@ -65,12 +65,20 @@ Item {
                 if (root.hasGlobalDrawer && globalDrawer.enabled && globalDrawer.modal) {
                     globalDrawer.peeking = true;
                     globalDrawer.visible = true;
-                    globalDrawer.position = Math.min(1, Math.max(0, (x - root.width/2 + button.width/2)/globalDrawer.contentItem.width + mouseArea.drawerShowAdjust));
+                    if (Qt.application.layoutDirection === Qt.LeftToRight) {
+                        globalDrawer.position = Math.min(1, Math.max(0, (x - root.width/2 + button.width/2)/globalDrawer.contentItem.width + mouseArea.drawerShowAdjust));
+                    } else {
+                        globalDrawer.position = Math.min(1, Math.max(0, (root.width/2 - button.width/2 - x)/globalDrawer.contentItem.width + mouseArea.drawerShowAdjust));
+                    }
                 }
                 if (root.hasContextDrawer && contextDrawer.enabled && contextDrawer.modal) {
                     contextDrawer.peeking = true;
                     contextDrawer.visible = true;
-                    contextDrawer.position = Math.min(1, Math.max(0, (root.width/2 - button.width/2 - x)/contextDrawer.contentItem.width + mouseArea.drawerShowAdjust));
+                    if (Qt.application.layoutDirection === Qt.LeftToRight) {
+                        contextDrawer.position = Math.min(1, Math.max(0, (root.width/2 - button.width/2 - x)/contextDrawer.contentItem.width + mouseArea.drawerShowAdjust));
+                    } else {
+                        contextDrawer.position = Math.min(1, Math.max(0, (x - root.width/2 + button.width/2)/contextDrawer.contentItem.width + mouseArea.drawerShowAdjust));
+                    }
                 }
             }
         }
@@ -202,7 +210,11 @@ Item {
                 target: root.hasGlobalDrawer ? globalDrawer : null
                 onPositionChanged: {
                     if ( globalDrawer && globalDrawer.modal && !mouseArea.pressed && !edgeMouseArea.pressed && !fakeContextMenuButton.pressed) {
-                        button.x = globalDrawer.contentItem.width * globalDrawer.position + root.width/2 - button.width/2;
+                        if (Qt.application.layoutDirection === Qt.LeftToRight) {
+                            button.x = globalDrawer.contentItem.width * globalDrawer.position + root.width/2 - button.width/2;
+                        } else {
+                            button.x = -globalDrawer.contentItem.width * globalDrawer.position + root.width/2 - button.width/2
+                        }
                     }
                 }
             }
@@ -210,7 +222,11 @@ Item {
                 target: root.hasContextDrawer ? contextDrawer : null
                 onPositionChanged: {
                     if (contextDrawer && contextDrawer.modal && !mouseArea.pressed && !edgeMouseArea.pressed && !fakeContextMenuButton.pressed) {
-                        button.x = root.width/2 - button.width/2 - contextDrawer.contentItem.width * contextDrawer.position;
+                        if (Qt.application.layoutDirection === Qt.LeftToRight) {
+                            button.x = root.width/2 - button.width/2 - contextDrawer.contentItem.width * contextDrawer.position;
+                        } else {
+                            button.x = root.width/2 - button.width/2 + contextDrawer.contentItem.width * contextDrawer.position;
+                        }
                     }
                 }
             }
@@ -249,7 +265,7 @@ Item {
                         height: width
                         source: root.action && root.action.icon.name ? root.action.icon.name : ""
                         selected: true
-                        color: root.action && root.action.color && root.action.color.a > 0 ? root.action.color : (selected ? Theme.highlightedTextColor : Theme.textColor)
+                        color: root.action && root.action.icon && root.action.icon.color && root.action.icon.color.a > 0 ? root.action.icon.color : (selected ? Theme.highlightedTextColor : Theme.textColor)
                     }
                     Behavior on color {
                         ColorAnimation {
@@ -302,7 +318,7 @@ Item {
                         width: Units.iconSizes.smallMedium
                         height: width
                         selected: leftButtonGraphics.pressed
-                        color: root.action && root.action.color && root.action.color.a > 0 ? root.action.color : (selected ? Theme.highlightedTextColor : Theme.textColor)
+                        color: root.leftAction && root.leftAction.icon && root.leftAction.icon.color && root.leftAction.icon.color.a > 0 ? root.leftAction.icon.color : (selected ? Theme.highlightedTextColor : Theme.textColor)
                         anchors {
                             left: parent.left
                             verticalCenter: parent.verticalCenter
@@ -348,7 +364,7 @@ Item {
                         width: Units.iconSizes.smallMedium
                         height: width
                         selected: rightButtonGraphics.pressed
-                        color: root.action && root.action.color && root.action.color.a > 0 ? root.action.color : (selected ? Theme.highlightedTextColor : Theme.textColor)
+                        color: root.rightAction && root.rightAction.icon && root.rightAction.icon.color && root.rightAction.icon.color.a > 0 ? root.rightAction.icon.color : (selected ? Theme.highlightedTextColor : Theme.textColor)
                         anchors {
                             right: parent.right
                             verticalCenter: parent.verticalCenter
